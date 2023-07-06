@@ -1,0 +1,3 @@
+module "ChildResources" {
+  source = "../Cluster"
+}
