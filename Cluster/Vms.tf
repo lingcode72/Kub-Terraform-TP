@@ -11,12 +11,12 @@ resource "tls_private_key" "SSH" {
 #### 2 Workers VM
  resource "azurerm_linux_virtual_machine" "test" {
     count                 = 2
-    name                  = "Worker${count.index[1]}"
+    name                  = "Worker${count.index}"
     location              = azurerm_resource_group.Kubernetes.location
     resource_group_name   = azurerm_resource_group.Kubernetes.name
     size                  = "Standard_D2ds_v4"
     network_interface_ids = [
-     azurerm_network_interface.test["${count.index[1]}"].id
+     azurerm_network_interface.test["${count.index}"].id
     ]
 
     source_image_reference  {
@@ -26,7 +26,7 @@ resource "tls_private_key" "SSH" {
       version   = "latest"
     }
 
-    computer_name                   = "kub-worker-${count.index[1]}"
+    computer_name                   = "kub-worker-${count.index}"
     admin_username                  = "ling"
     disable_password_authentication = true
 
